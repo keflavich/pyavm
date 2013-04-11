@@ -331,7 +331,8 @@ class AVM(AVMContainer):
 
         if use_full_header and self.Spatial.FITSheader is not None:
             print("Using full FITS header from Spatial.FITSheader")
-            header = fits.Header.fromtextfile(StringIO(self.specs['Spatial.FITSheader']),endcard=False)
+            header = fits.Header.fromtextfile(StringIO(self.specs['Spatial.FITSheader']),
+                    endcard=False)
             return WCS(header)
 
         # Initializing WCS object
