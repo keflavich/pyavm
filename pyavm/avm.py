@@ -326,12 +326,12 @@ class AVM(AVMContainer):
         if not astropy_installed:
             raise Exception("Astropy is required to use to_wcs()")
 
-        if repr(self.Spatial) == '':
+        if repr(self.Spatial) == '' and 'Spatial.FITSheader' not in self.specs:
             raise NoSpatialInformation("AVM meta-data does not contain any spatial information")
 
         if use_full_header and self.Spatial.FITSheader is not None:
             print("Using full FITS header from Spatial.FITSheader")
-            header = fits.Header(txtfile=StringIO(self.Spatial.FITSheader))
+            header = fits.Header.fromtextfile(StringIO(self.specs['Spatial.FITSheader']),endcard=False)
             return WCS(header)
 
         # Initializing WCS object
